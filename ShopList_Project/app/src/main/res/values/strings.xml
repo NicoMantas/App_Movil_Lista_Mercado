@@ -7,7 +7,7 @@
 
     <!-- Este es texto para el registro -->
     <string name="title_register">Crea Una Cuenta</string>
-    <string name="hint_nombre">Nombre</string>
+    <string name="hint_nombre">Nombre Completo</string>
     <string name="hint_correo">Correo o Usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="hint_confirm_password">Confirmar Contraseña</string>
