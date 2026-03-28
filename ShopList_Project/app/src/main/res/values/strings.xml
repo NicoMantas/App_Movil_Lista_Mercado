@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ShopList</string>
+    <string name="description_app">Tu lista del mercado, siempre contigo. Organiza tus compras de manera inteligente y sin complicaciones.</string>
+    <string name="button_register">Registrate</string>
+    <string name="button_login">Iniciar Sesión</string>
 </resources>
