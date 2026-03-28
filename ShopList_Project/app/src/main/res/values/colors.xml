@@ -6,4 +6,6 @@
     <color name="yellow_main">#FFC123</color>
     <color name="yellow_light">#FFF4D6</color>
     <color name="gray_text">#4A4A4A</color>
+
+    <color name="gray_hint">#BDBDBD</color>
 </resources>

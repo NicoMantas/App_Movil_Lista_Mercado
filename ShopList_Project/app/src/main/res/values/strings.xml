@@ -1,6 +1,15 @@
 <resources>
+    <!-- Este es texto para el splash -->
     <string name="app_name">ShopList</string>
     <string name="description_app">Tu lista del mercado, siempre contigo. Organiza tus compras de manera inteligente y sin complicaciones.</string>
     <string name="button_register">Registrate</string>
     <string name="button_login">Iniciar Sesión</string>
+
+    <!-- Este es texto para el registro -->
+    <string name="title_register">Crea Una Cuenta</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_correo">Correo o Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Confirmar Contraseña</string>
+    <string name="footer_login">Ya tienes una cuenta ? Inicia Sesión Aqui!</string>
 </resources>
