@@ -51,9 +51,9 @@
             android:layout_below="@id/headerRegister"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_yellow"
-            android:src="@android:drawable/ic_menu_revert"
-            android:tint="@color/white" />
+            android:background="@drawable/button_yellow_back"
+            android:src="@drawable/icon_arrow_left_register"
+            app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,11 +78,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="@string/hint_nombre"
-                android:drawableStart="@android:drawable/ic_menu_myplaces"
-                android:drawablePadding="10dp"
-                android:drawableTint="@color/yellow_main"
+                android:drawableStart="@drawable/icon_name_register"  android:drawablePadding="12dp"
                 android:backgroundTint="@color/yellow_light"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:paddingStart="12dp" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -90,11 +89,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hint_correo"
-                android:drawableStart="@android:drawable/ic_dialog_email"
-                android:drawablePadding="10dp"
-                android:drawableTint="@color/yellow_main"
+                android:drawableStart="@drawable/icon_mail_register"  android:drawablePadding="12dp"
                 android:backgroundTint="@color/yellow_light"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:paddingStart="12dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -102,17 +100,15 @@
                 android:layout_marginTop="10dp"
                 app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
-                app:passwordToggleTint="@color/yellow_main">
-                <EditText
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="@string/hint_password"
-                    android:drawableStart="@android:drawable/ic_lock_idle_lock"
-                    android:drawablePadding="10dp"
-                    android:drawableTint="@color/yellow_main"
-                    android:backgroundTint="@color/yellow_light"
-                    android:inputType="textPassword" />
+                app:passwordToggleTint="@color/yellow_main"> <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/hint_password"
+                android:drawableStart="@drawable/icon_password_register"  android:drawablePadding="12dp"
+                android:backgroundTint="@color/yellow_light"
+                android:inputType="textPassword"
+                android:paddingStart="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -127,11 +123,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:hint="@string/hint_confirm_password"
-                    android:drawableStart="@android:drawable/ic_lock_idle_lock"
-                    android:drawablePadding="10dp"
-                    android:drawableTint="@color/yellow_main"
+                    android:drawableStart="@drawable/icon_password_register"  android:drawablePadding="12dp"
                     android:backgroundTint="@color/yellow_light"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingStart="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
