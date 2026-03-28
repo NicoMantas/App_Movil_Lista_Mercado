@@ -11,5 +11,5 @@
     <string name="hint_correo">Correo o Usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="hint_confirm_password">Confirmar Contraseña</string>
-    <string name="footer_login">Ya tienes una cuenta ? Inicia Sesión Aqui!</string>
+    <string name="footer_login">Ya tienes una cuenta ? <![CDATA[<u>Inicia Sesión Aqui!</u>]]></string>
 </resources>
