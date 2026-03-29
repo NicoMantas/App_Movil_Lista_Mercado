@@ -113,17 +113,19 @@
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/button_yellow"
+                android:layout_marginTop="70dp"  android:background="@drawable/button_yellow"
                 android:text="@string/button_login"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
 
             <TextView
                 android:id="@+id/tvGoToLogin"
