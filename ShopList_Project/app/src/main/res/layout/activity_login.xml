@@ -67,84 +67,62 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_register"
+                android:text="@string/title_login"
                 android:textColor="@color/black"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="30dp"/>
 
             <EditText
-                android:id="@+id/etNombre"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/hint_nombre"
-                android:drawableStart="@drawable/icon_name_register"
-                android:drawablePadding="12dp"
-                android:backgroundTint="@color/yellow_light"
-                android:inputType="textPersonName"
-                android:paddingStart="12dp" />
-
-            <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:hint="@string/hint_correo"
-                android:drawableStart="@drawable/icon_mail_register"
-                android:drawablePadding="12dp"
+                android:hint="@string/hint_mail_login"
+                android:drawableStart="@drawable/icon_mail_register"  android:drawablePadding="12dp"
                 android:backgroundTint="@color/yellow_light"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
-                app:errorEnabled="true"
                 app:passwordToggleTint="@color/yellow_main">
+
                 <EditText
-                    android:id="@+id/etPassword"
+                    android:id="@+id/etPasswordLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="@string/hint_password"
-                    android:drawableStart="@drawable/icon_password_register"
-                    android:drawablePadding="12dp"
+                    android:layout_height="49dp"
                     android:backgroundTint="@color/yellow_light"
+                    android:drawableStart="@drawable/icon_password_register"
+                    android:drawablePadding="13dp"
+                    android:hint="@string/hint_password_login"
                     android:inputType="textPassword"
                     android:paddingStart="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilConfirmPassword"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:passwordToggleEnabled="true"
-                app:hintEnabled="false"
-                app:errorEnabled="true"
-                app:passwordToggleTint="@color/yellow_main">
-                <EditText
-                    android:id="@+id/etConfirmPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="@string/hint_confirm_password"
-                    android:drawableStart="@drawable/icon_password_register"
-                    android:drawablePadding="12dp"
-                    android:backgroundTint="@color/yellow_light"
-                    android:inputType="textPassword"
-                    android:paddingStart="12dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="start"  android:layout_marginTop="5dp"
+                android:text="@string/footer_password_login"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnFinalizeRegister"
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/button_yellow"
-                android:text="Registrate"
+                android:layout_marginTop="70dp"  android:background="@drawable/button_yellow"
+                android:text="@string/button_login"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -155,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="@string/footer_login"
+                android:text="@string/footer_register"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 

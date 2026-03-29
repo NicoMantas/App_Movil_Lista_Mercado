@@ -12,4 +12,11 @@
     <string name="hint_password">Contraseña</string>
     <string name="hint_confirm_password">Confirmar Contraseña</string>
     <string name="footer_login">Ya tienes una cuenta ? <![CDATA[<u>Inicia Sesión Aqui!</u>]]></string>
+
+    <!-- Este es texto para el iniciar sesion -->
+    <string name="title_login">Iniciar Sesion</string>
+    <string name="hint_mail_login">Correo</string>
+    <string name="hint_password_login">Contraseña</string>
+    <string name="footer_password_login"><![CDATA[<u>Olvidaste tu constraseña?</u>]]></string>
+    <string name="footer_register">No tienes una cuenta ? <![CDATA[<u>Registrate Aqui!</u>]]></string>
 </resources>
