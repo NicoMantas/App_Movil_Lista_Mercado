@@ -78,7 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="@string/hint_nombre"
-                android:drawableStart="@drawable/icon_name_register"  android:drawablePadding="12dp"
+                android:drawableStart="@drawable/icon_name_register"
+                android:drawablePadding="12dp"
                 android:backgroundTint="@color/yellow_light"
                 android:inputType="textPersonName"
                 android:paddingStart="12dp" />
@@ -89,41 +90,49 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hint_correo"
-                android:drawableStart="@drawable/icon_mail_register"  android:drawablePadding="12dp"
+                android:drawableStart="@drawable/icon_mail_register"
+                android:drawablePadding="12dp"
                 android:backgroundTint="@color/yellow_light"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
-                app:passwordToggleTint="@color/yellow_main"> <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/hint_password"
-                android:drawableStart="@drawable/icon_password_register"  android:drawablePadding="12dp"
-                android:backgroundTint="@color/yellow_light"
-                android:inputType="textPassword"
-                android:paddingStart="12dp" />
+                app:errorEnabled="true"
+                app:passwordToggleTint="@color/yellow_main">
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="@string/hint_password"
+                    android:drawableStart="@drawable/icon_password_register"
+                    android:drawablePadding="12dp"
+                    android:backgroundTint="@color/yellow_light"
+                    android:inputType="textPassword"
+                    android:paddingStart="12dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
+                app:errorEnabled="true"
                 app:passwordToggleTint="@color/yellow_main">
                 <EditText
                     android:id="@+id/etConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:hint="@string/hint_confirm_password"
-                    android:drawableStart="@drawable/icon_password_register"  android:drawablePadding="12dp"
+                    android:drawableStart="@drawable/icon_password_register"
+                    android:drawablePadding="12dp"
                     android:backgroundTint="@color/yellow_light"
                     android:inputType="textPassword"
                     android:paddingStart="12dp" />
