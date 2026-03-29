@@ -22,7 +22,8 @@ class SplashActivity : AppCompatActivity() {
         }
 
         btnIniciarSesion.setOnClickListener {
-            Toast.makeText(this, "Ir a Inicio de Sesión", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.upb.shoplist
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -29,57 +30,57 @@ class RegisterActivity : AppCompatActivity() {
 
         setupFooterText(tvGoToLogin)
 
+        // Volver atrás
         btnBack.setOnClickListener { finish() }
 
+        // Navegación al Login
+        tvGoToLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        // Lógica de Registro
         btnFinalizeRegister.setOnClickListener {
             val pass = etPassword.text.toString()
             val confirmPass = etConfirmPassword.text.toString()
 
-            // 1. Validaciones de Contraseña Segura
             when {
-                pass.isEmpty() -> {
-                    etPassword.error = "Campo obligatorio"
-                }
+                pass.isEmpty() -> etPassword.error = "Campo obligatorio"
                 pass.length < 6 -> {
                     etPassword.error = "Mínimo 6 caracteres"
-                    Toast.makeText(this, "La contraseña es muy corta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Contraseña demasiado corta", Toast.LENGTH_SHORT).show()
                 }
-                !pass.any { it.isDigit() } -> {
-                    etPassword.error = "Debe incluir al menos un número"
-                }
-                // 2. Validar que coincidan
-                pass != confirmPass -> {
-                    etConfirmPassword.error = "Las contraseñas no coinciden"
-                }
-                else -> {
-                    Toast.makeText(this, "Registro Exitoso para ${etNombre.text}", Toast.LENGTH_SHORT).show()
-                }
+                !pass.any { it.isDigit() } -> etPassword.error = "Debe incluir un número"
+                pass != confirmPass -> etConfirmPassword.error = "Las contraseñas no coinciden"
+                else -> Toast.makeText(this, "Registro Exitoso", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun setupFooterText(textView: TextView) {
         val fullTextRaw = getString(R.string.footer_login)
-        val styledText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(fullTextRaw, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            @Suppress("DEPRECATION")
-            Html.fromHtml(fullTextRaw)
-        }
-
+        val styledText = getHtmlStyledText(fullTextRaw)
         val spannable = SpannableString(styledText)
-        val wordToColor = "Inicia Sesión Aqui!"
-        val start = styledText.indexOf(wordToColor)
+        val wordToColor = "Inicia Sesión Aqui!" // Asegúrate que coincida con strings.xml
 
+        val start = styledText.indexOf(wordToColor)
         if (start != -1) {
-            val end = start + wordToColor.length
             spannable.setSpan(
                 ForegroundColorSpan(getColor(R.color.yellow_main)),
-                start,
-                end,
+                start, start + wordToColor.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
         textView.text = spannable
+    }
+
+    private fun getHtmlStyledText(rawString: String): CharSequence {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(rawString, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            @Suppress("DEPRECATION")
+            Html.fromHtml(rawString)
+        }
     }
 }
