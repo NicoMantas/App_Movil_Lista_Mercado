@@ -116,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
      */
     private fun setupFooterTexts(tvReg: TextView, tvForgot: TextView) {
         // Texto de Registro
-        val textReg = getString(R.string.footer_login) // Asegúrate que en strings.xml tenga <u>
+        val textReg = getString(R.string.footer_register) // Asegúrate que en strings.xml tenga <u>
         val styledReg = getHtmlText(textReg)
         val spanReg = SpannableString(styledReg)
 
