@@ -81,6 +81,12 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // 6. Ir a la pantalla de Recuperar Contraseña
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, RecoverPasswordActivity::class.java) // Asegúrate que el nombre de la clase sea este
+            startActivity(intent)
+        }
     }
 
     /**
