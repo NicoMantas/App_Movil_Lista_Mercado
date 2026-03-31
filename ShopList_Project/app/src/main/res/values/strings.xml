@@ -26,4 +26,14 @@
     <string name="button_back">Volver</string>
     <string name="button_next">Continuar</string>
     <string name="hint_confirm">Confirmar</string>
+
+    <!-- Este es texto para el home -->
+    <string name="title_home">Bienvenido</string>
+    <string name="label_your_lists">Tus Listas</string>
+    <string name="empty_title">Empieza por crear una lista</string>
+    <string name="empty_description">Tu lista inteligente de mercado se mostrará aquí. Comienza creando una nueva lista.</string>
+    <string name="menu_search">Buscar</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_history">Historial</string>
+
 </resources>

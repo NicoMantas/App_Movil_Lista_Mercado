@@ -69,13 +69,12 @@ class LoginActivity : AppCompatActivity() {
             // Validación contra el JSON en Assets
             val userName = checkCredentialsInJson(emailInput, passInput)
 
+            // Dentro de btnLogin.setOnClickListener en LoginActivity:
             if (userName != null) {
-                // ÉXITO: Usuario encontrado
-                Toast.makeText(this, "¡Bienvenido de nuevo, $userName!", Toast.LENGTH_LONG).show()
-
-                // Aquí podrías navegar al MainActivity
-                // val intent = Intent(this, MainActivity::class.java)
-                // startActivity(intent)
+                val intent = Intent(this, HomeMainActivity::class.java)
+                intent.putExtra("USER_NAME", userName) // Mandamos el nombre al MainActivity
+                startActivity(intent)
+                finish()
             } else {
                 // ERROR: No coinciden los datos
                 Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
