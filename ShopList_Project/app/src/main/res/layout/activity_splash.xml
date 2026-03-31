@@ -15,7 +15,7 @@
             android:id="@+id/headerContainer"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:background="@drawable/background_header_splash">
+            android:background="@drawable/background_header_1">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="12dp"
-                    android:background="@drawable/button_yellow"
+                    android:background="@drawable/button_yellow_general"
                     android:text="@string/button_register"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
@@ -94,7 +94,7 @@
                     android:id="@+id/btnIniciarSesion"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:background="@drawable/button_yellow"
+                    android:background="@drawable/button_yellow_general"
                     android:text="@string/button_login"
                     android:textAllCaps="false"
                     android:textColor="@color/black"

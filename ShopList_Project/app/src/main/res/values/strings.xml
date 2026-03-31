@@ -19,4 +19,11 @@
     <string name="hint_password_login">Contraseña</string>
     <string name="footer_password_login"><![CDATA[<u>Olvidaste tu constraseña?</u>]]></string>
     <string name="footer_register">No tienes una cuenta ? <![CDATA[<u>Registrate Aqui!</u>]]></string>
+
+    <!-- Este es texto para la recuperacion de la contraseña -->
+    <string name="title_recover_password">Recupera Tu \n Contraseña</string>
+    <string name="hint_mail_recover_password">Escribe tu email para que te mandemos un correo de recuperacion</string>
+    <string name="button_back">Volver</string>
+    <string name="button_next">Continuar</string>
+    <string name="hint_confirm">Confirmar</string>
 </resources>

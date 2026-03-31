@@ -14,7 +14,7 @@
             android:id="@+id/headerRegister"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@drawable/background_header_splash">
+            android:background="@drawable/background_header_1">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_yellow_back"
-            android:src="@drawable/icon_arrow_left_register"
+            android:src="@drawable/icon_arrow_left"
             app:tint="@color/white" />
 
         <LinearLayout
@@ -79,7 +79,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hint_mail_login"
-                android:drawableStart="@drawable/icon_mail_register"  android:drawablePadding="12dp"
+                android:drawableStart="@drawable/icon_mail"  android:drawablePadding="12dp"
                 android:backgroundTint="@color/yellow_light"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp" />
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
                     android:backgroundTint="@color/yellow_light"
-                    android:drawableStart="@drawable/icon_password_register"
+                    android:drawableStart="@drawable/icon_password"
                     android:drawablePadding="13dp"
                     android:hint="@string/hint_password_login"
                     android:inputType="textPassword"
@@ -121,7 +121,7 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="70dp"  android:background="@drawable/button_yellow"
+                android:layout_marginTop="70dp"  android:background="@drawable/button_yellow_general"
                 android:text="@string/button_login"
                 android:textAllCaps="false"
                 android:textSize="18sp"
