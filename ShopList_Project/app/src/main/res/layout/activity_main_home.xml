@@ -9,48 +9,41 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp">
+        android:layout_marginBottom="70dp">
 
         <FrameLayout
             android:id="@+id/headerHome"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:background="@drawable/background_header_2">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:paddingHorizontal="25dp">
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <FrameLayout
-                    android:id="@+id/flAvatar"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/shape_avatar_background">
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_page" />
 
-                    <TextView
-                        android:id="@+id/tvUserInitial"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="N"
-                        android:textColor="@color/white"
-                        android:textSize="26sp"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"/>
-                </FrameLayout>
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
                     android:textColor="@color/black"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/flAvatar"
-                    android:layout_marginStart="20dp"/>
-            </RelativeLayout>
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </FrameLayout>
 
         <LinearLayout
@@ -58,17 +51,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/headerHome"
+            android:layout_marginTop="-10dp"
             android:orientation="vertical"
-            android:paddingHorizontal="25dp"
-            android:layout_marginTop="10dp">
+            android:paddingHorizontal="25dp">
 
             <TextView
                 android:id="@+id/tvWelcomeUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_home"
+                android:text="Bienvenido, User!"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -78,7 +71,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="normal"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="8dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -89,11 +82,11 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="40dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp">
 
             <ImageView
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
                 android:src="@drawable/image_backgroundhome_empty"
                 android:scaleType="fitCenter" />
 
@@ -145,7 +138,6 @@
         android:backgroundTint="@color/yellow_main"
         app:tint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
-        app:fabSize="normal"
-        android:contentDescription="Agregar lista" />
+        app:fabSize="normal" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
