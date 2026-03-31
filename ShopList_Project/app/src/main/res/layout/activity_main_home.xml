@@ -116,28 +116,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/black"
+        app:backgroundTint="@color/black"
         app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="25dp">
+        app:fabCradleRoundedCornerRadius="30dp"
+        app:fabAlignmentMode="center"> <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        app:elevation="0dp"
+        app:itemIconTint="@color/bnv_tab_item_color"  app:itemTextColor="@color/bnv_tab_item_color" app:labelVisibilityMode="unlabeled"           app:menu="@menu/bottom_menu" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            app:elevation="0dp"
-            app:menu="@menu/bottom_menu"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_plus_home"
+        android:src="@drawable/icon_create_list"
         android:backgroundTint="@color/yellow_main"
         app:tint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
-        app:fabSize="normal" />
+        app:maxImageSize="35dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

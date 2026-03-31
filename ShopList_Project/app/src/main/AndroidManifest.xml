@@ -34,6 +34,10 @@
             android:name=".RecoverPasswordActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".HomeMainActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
