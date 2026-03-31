@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 
 class HomeMainActivity : AppCompatActivity() {
 
@@ -13,26 +16,29 @@ class HomeMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_home)
 
-
         // 1. Vinculación de Vistas
         val tvWelcomeUser = findViewById<TextView>(R.id.tvWelcomeUser)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
+        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
 
-        // 2. Lógica del Saludo Personalizado
-        // Intentamos obtener el nombre enviado desde el Login
-        val userName = intent.getStringExtra("USER_NAME")
-
-        if (!userName.isNullOrEmpty()) {
-            tvWelcomeUser.text = "Bienvenido, $userName!"
-        } else {
-            tvWelcomeUser.text = "Bienvenido, User!"
+        // --- CORRECCIÓN DE BORDES REDONDEADOS ---
+        val bottomBarBackground = bottomAppBar.background as? MaterialShapeDrawable
+        bottomBarBackground?.let {
+            val currentModel = it.shapeAppearanceModel
+            // Aplicamos 24dp (aprox 70f-80f dependiendo de la densidad) a las esquinas superiores
+            it.shapeAppearanceModel = currentModel.toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 40f)
+                .setTopRightCorner(CornerFamily.ROUNDED, 40f)
+                .build()
         }
 
-        // Esto hace que el Home aparezca seleccionado al arrancar
-        bottomNav.selectedItemId = R.id.item_home
+        // 2. Lógica del Saludo Personalizado
+        val userName = intent.getStringExtra("USER_NAME")
+        tvWelcomeUser.text = if (!userName.isNullOrEmpty()) "Bienvenido, $userName!" else "Bienvenido, User!"
 
         // 3. Configuración del Menú de Navegación
+        bottomNav.selectedItemId = R.id.item_home
         bottomNav.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.item_home -> {
@@ -57,7 +63,6 @@ class HomeMainActivity : AppCompatActivity() {
 
         // 4. Lógica del Botón Flotante (+)
         fab.setOnClickListener {
-            // Aquí luego abriremos la nueva Activity para crear listas
             Toast.makeText(this, "Creando nueva lista...", Toast.LENGTH_SHORT).show()
         }
     }

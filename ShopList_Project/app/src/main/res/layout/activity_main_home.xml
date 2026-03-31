@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="70dp">
+        android:layout_marginBottom="60dp">
 
         <FrameLayout
             android:id="@+id/headerHome"
@@ -20,20 +20,20 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="40dp"
+                android:layout_gravity="start|top"
+                android:layout_marginTop="45dp"
                 android:layout_marginStart="25dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_page" />
 
                 <Space
-                    android:layout_width="60dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
                     android:textColor="@color/black"
-                    android:textSize="32sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </FrameLayout>
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/headerHome"
-            android:layout_marginTop="-10dp"
+            android:layout_marginTop="-5dp"
             android:orientation="vertical"
             android:paddingHorizontal="25dp">
 
@@ -70,7 +70,7 @@
                 android:text="@string/label_your_lists"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -82,11 +82,11 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="40dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
             <ImageView
-                android:layout_width="280dp"
-                android:layout_height="280dp"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
                 android:src="@drawable/image_backgroundhome_empty"
                 android:scaleType="fitCenter" />
 
@@ -105,7 +105,7 @@
                 android:text="@string/empty_description"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:alpha="0.7"
+                android:alpha="0.6"
                 android:layout_marginTop="8dp"
                 android:gravity="center"/>
         </LinearLayout>
@@ -117,16 +117,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/black"
-        app:fabCradleMargin="10dp"
+        app:fabCradleMargin="12dp"
         app:fabCradleRoundedCornerRadius="30dp"
-        app:fabAlignmentMode="center"> <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        app:elevation="0dp"
-        app:itemIconTint="@color/bnv_tab_item_color"  app:itemTextColor="@color/bnv_tab_item_color" app:labelVisibilityMode="unlabeled"           app:menu="@menu/bottom_menu" />
+        app:fabAlignmentMode="center"
+        app:elevation="8dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            app:elevation="0dp"
+            app:itemIconTint="@color/bnv_tab_item_color"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -138,6 +143,6 @@
         android:backgroundTint="@color/yellow_main"
         app:tint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
-        app:maxImageSize="35dp" />
+        app:maxImageSize="32dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
