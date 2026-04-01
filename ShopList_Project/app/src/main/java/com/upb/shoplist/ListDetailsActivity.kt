@@ -2,30 +2,38 @@ package com.upb.shoplist
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
+import java.util.UUID
 
-class AddProductActivity : AppCompatActivity() {
+class ListDetailsActivity : AppCompatActivity() {
+
+    private lateinit var listName: String
+    private val products = mutableListOf<Product>()
+    private lateinit var adapter: ProductAdapter
+    private lateinit var tvTotalPrice: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_product)
+        setContentView(R.layout.activity_list_details)
 
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        val etProductName = findViewById<EditText>(R.id.etProductName)
-        val spinnerCategory = findViewById<Spinner>(R.id.spinnerCategory)
-        val etQuantity = findViewById<EditText>(R.id.etQuantity)
-        val etPrice = findViewById<EditText>(R.id.etPrice)
+        val tvListName = findViewById<TextView>(R.id.tvListName)
+        val rvProducts = findViewById<RecyclerView>(R.id.rvProducts)
+        val tvEmptyState = findViewById<TextView>(R.id.tvEmptyState)
         val btnAddProduct = findViewById<MaterialButton>(R.id.btnAddProduct)
+        val btnFinishList = findViewById<MaterialButton>(R.id.btnFinishList)
+        tvTotalPrice = findViewById(R.id.tvTotalPrice)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
         val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
@@ -39,43 +47,43 @@ class AddProductActivity : AppCompatActivity() {
                 .build()
         }
 
+        // Obtener datos del Intent
+        listName = intent.getStringExtra("LIST_NAME") ?: "Mi Lista"
+        val productList = intent.getSerializableExtra("PRODUCTS") as? ArrayList<Product> ?: arrayListOf()
+        products.addAll(productList)
+
+        tvListName.text = listName
+
+        // Configurar RecyclerView
+        adapter = ProductAdapter(
+            products,
+            onDeleteClick = { product ->
+                adapter.removeProduct(product)
+                updateUI(tvEmptyState)
+            },
+            onCheckChange = { _, _ ->
+                updateUI(tvEmptyState)
+            }
+        )
+        rvProducts.layoutManager = LinearLayoutManager(this)
+        rvProducts.adapter = adapter
+
+        updateUI(tvEmptyState)
+
         btnBack.setOnClickListener {
             finish()
         }
 
         btnAddProduct.setOnClickListener {
-            val productName = etProductName.text.toString().trim()
-            val category = spinnerCategory.selectedItem.toString()
-            val quantity = etQuantity.text.toString().trim()
-            val priceText = etPrice.text.toString().trim()
-
-            if (productName.isEmpty() || quantity.isEmpty()) {
-                if (productName.isEmpty()) {
-                    etProductName.error = "Ingresa nombre del producto"
-                }
-                if (quantity.isEmpty()) {
-                    etQuantity.error = "Ingresa cantidad"
-                }
-                return@setOnClickListener
-            }
-
-            val price = priceText.toDoubleOrNull() ?: 0.0
-            val newProduct = Product(
-                id = java.util.UUID.randomUUID().toString(),
-                name = productName,
-                category = category,
-                quantity = quantity.toInt(),
-                price = price
-            )
-
-            val listName = intent.getStringExtra("LIST_NAME") ?: "Mi Lista"
-            val products = intent.getSerializableExtra("PRODUCTS") as? ArrayList<Product> ?: arrayListOf()
-            products.add(newProduct)
-
-            val intent = Intent(this, ListDetailsActivity::class.java)
+            val intent = Intent(this, AddProductActivity::class.java)
             intent.putExtra("LIST_NAME", listName)
-            intent.putExtra("PRODUCTS", products)
+            intent.putExtra("PRODUCTS", ArrayList(products))
             startActivity(intent)
+        }
+
+        btnFinishList.setOnClickListener {
+            Toast.makeText(this, "Lista '$listName' completada", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HomeMainActivity::class.java))
             finish()
         }
 
@@ -105,7 +113,18 @@ class AddProductActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener {
-            Toast.makeText(this, "Ya estás en Agregar Producto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Creando nueva lista...", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateUI(tvEmptyState: TextView) {
+        if (products.isEmpty()) {
+            tvEmptyState.visibility = android.view.View.VISIBLE
+            tvTotalPrice.text = "Total: $ 0"
+        } else {
+            tvEmptyState.visibility = android.view.View.GONE
+            val total = products.sumOf { it.price }
+            tvTotalPrice.text = "Total: $ $total"
         }
     }
 }

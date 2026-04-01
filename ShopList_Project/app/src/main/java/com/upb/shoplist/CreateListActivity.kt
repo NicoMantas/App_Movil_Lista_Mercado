@@ -41,7 +41,10 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         btnAddProduct.setOnClickListener {
-            startActivity(Intent(this, AddProductActivity::class.java))
+            val intent = Intent(this, AddProductActivity::class.java)
+            intent.putExtra("LIST_NAME", etListName.text.toString())
+            intent.putExtra("PRODUCTS", arrayListOf<Product>())
+            startActivity(intent)
         }
 
         btnConfirmCreate.setOnClickListener {
