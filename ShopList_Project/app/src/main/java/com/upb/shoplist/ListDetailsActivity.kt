@@ -59,6 +59,15 @@ class ListDetailsActivity : AppCompatActivity() {
         // Configurar RecyclerView
         adapter = ProductAdapter(
             products,
+            onEditClick = { product ->
+                val intent = Intent(this, EditProductActivity::class.java)
+                intent.putExtra("LIST_ID", listId)
+                intent.putExtra("LIST_NAME", listName)
+                intent.putExtra("PRODUCT_ID", product.id)
+                intent.putExtra("PRODUCTS", ArrayList(products))
+                startActivity(intent)
+                finish()
+            },
             onDeleteClick = { product ->
                 adapter.removeProduct(product)
                 updateUI(tvEmptyState)
