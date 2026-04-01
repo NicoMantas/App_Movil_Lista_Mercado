@@ -38,6 +38,10 @@
             android:name=".HomeMainActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".CreditsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
