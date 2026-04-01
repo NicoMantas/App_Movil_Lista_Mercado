@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Frutas</item>
+        <item>Verduras</item>
+        <item>Proteinas</item>
+        <item>Lácteos</item>
+        <item>Granos</item>
+        <item>Bebidas</item>
+        <item>Snacks</item>
+        <item>Congelados</item>
+        <item>Otros</item>
+    </string-array>
+</resources>
