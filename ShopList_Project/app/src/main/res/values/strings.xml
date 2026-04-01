@@ -71,5 +71,6 @@
     <string name="text_no_products">Sin productos aún</string>
     <string name="button_finish_list">Finalizar Lista</string>
     <string name="button_add_more_products">Agregar Más Productos</string>
+    <string name="button_logout">Cerrar Sesión</string>
 
 </resources>
