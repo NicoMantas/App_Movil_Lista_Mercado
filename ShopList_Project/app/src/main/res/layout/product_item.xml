@@ -89,7 +89,7 @@
                 android:layout_height="40dp"
                 android:layout_marginBottom="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Editar"
+                android:contentDescription="@string/button_edit_product"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_edit" />
 
@@ -101,7 +101,7 @@
                 android:src="@drawable/icon_arrow_left"
                 android:scaleType="centerInside"
                 android:rotation="180"
-                android:contentDescription="Eliminar" />
+                android:contentDescription="@string/button_delete_product" />
 
         </LinearLayout>
 
