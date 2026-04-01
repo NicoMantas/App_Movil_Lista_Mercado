@@ -68,11 +68,13 @@ class AddProductActivity : AppCompatActivity() {
                 price = price
             )
 
+            val listId = intent.getStringExtra("LIST_ID") ?: java.util.UUID.randomUUID().toString()
             val listName = intent.getStringExtra("LIST_NAME") ?: "Mi Lista"
             val products = intent.getSerializableExtra("PRODUCTS") as? ArrayList<Product> ?: arrayListOf()
             products.add(newProduct)
 
             val intent = Intent(this, ListDetailsActivity::class.java)
+            intent.putExtra("LIST_ID", listId)
             intent.putExtra("LIST_NAME", listName)
             intent.putExtra("PRODUCTS", products)
             startActivity(intent)

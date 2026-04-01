@@ -18,6 +18,7 @@ import java.util.UUID
 
 class ListDetailsActivity : AppCompatActivity() {
 
+    private lateinit var listId: String
     private lateinit var listName: String
     private val products = mutableListOf<Product>()
     private lateinit var adapter: ProductAdapter
@@ -48,6 +49,7 @@ class ListDetailsActivity : AppCompatActivity() {
         }
 
         // Obtener datos del Intent
+        listId = intent.getStringExtra("LIST_ID") ?: UUID.randomUUID().toString()
         listName = intent.getStringExtra("LIST_NAME") ?: "Mi Lista"
         val productList = intent.getSerializableExtra("PRODUCTS") as? ArrayList<Product> ?: arrayListOf()
         products.addAll(productList)
@@ -76,12 +78,21 @@ class ListDetailsActivity : AppCompatActivity() {
 
         btnAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductActivity::class.java)
+            intent.putExtra("LIST_ID", listId)
             intent.putExtra("LIST_NAME", listName)
             intent.putExtra("PRODUCTS", ArrayList(products))
             startActivity(intent)
         }
 
         btnFinishList.setOnClickListener {
+            ShoppingListStorage.saveOrUpdateList(
+                context = this,
+                list = ShoppingList(
+                    id = listId,
+                    name = listName,
+                    products = ArrayList(products)
+                )
+            )
             Toast.makeText(this, "Lista '$listName' completada", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeMainActivity::class.java))
             finish()

@@ -12,6 +12,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
+import java.util.UUID
 
 class CreateListActivity : AppCompatActivity() {
 
@@ -42,6 +43,7 @@ class CreateListActivity : AppCompatActivity() {
 
         btnAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductActivity::class.java)
+            intent.putExtra("LIST_ID", UUID.randomUUID().toString())
             intent.putExtra("LIST_NAME", etListName.text.toString())
             intent.putExtra("PRODUCTS", arrayListOf<Product>())
             startActivity(intent)
