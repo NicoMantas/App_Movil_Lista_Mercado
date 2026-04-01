@@ -2,48 +2,65 @@ package com.upb.shoplist
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 
-class HomeMainActivity : AppCompatActivity() {
+class CreateListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_home)
+        setContentView(R.layout.activity_create_list)
 
-        // 1. Vinculación de Vistas
-        val tvWelcomeUser = findViewById<TextView>(R.id.tvWelcomeUser)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val etListName = findViewById<EditText>(R.id.etListName)
+        val btnAddProduct = findViewById<MaterialButton>(R.id.btnAddProduct)
+        val btnConfirmCreate = findViewById<MaterialButton>(R.id.btnConfirmCreate)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
         val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
 
-        // --- CORRECCIÓN DE BORDES REDONDEADOS ---
         val bottomBarBackground = bottomAppBar.background as? MaterialShapeDrawable
         bottomBarBackground?.let {
             val currentModel = it.shapeAppearanceModel
-            // Aplicamos 24dp (aprox 70f-80f dependiendo de la densidad) a las esquinas superiores
             it.shapeAppearanceModel = currentModel.toBuilder()
                 .setTopLeftCorner(CornerFamily.ROUNDED, 40f)
                 .setTopRightCorner(CornerFamily.ROUNDED, 40f)
                 .build()
         }
 
-        // 2. Lógica del Saludo Personalizado
-        val userName = intent.getStringExtra("USER_NAME")
-        tvWelcomeUser.text = if (!userName.isNullOrEmpty()) "Bienvenido, $userName!" else "Bienvenido, User!"
+        btnBack.setOnClickListener {
+            finish()
+        }
 
-        // 3. Configuración del Menú de Navegación
+        btnAddProduct.setOnClickListener {
+            Toast.makeText(this, "Pantalla Agregar Producto en construccion", Toast.LENGTH_SHORT).show()
+        }
+
+        btnConfirmCreate.setOnClickListener {
+            val listName = etListName.text.toString().trim()
+            if (listName.isEmpty()) {
+                etListName.error = "Ingresa un nombre para la lista"
+                return@setOnClickListener
+            }
+            Toast.makeText(this, "Lista '$listName' creada", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HomeMainActivity::class.java))
+            finish()
+        }
+
         bottomNav.selectedItemId = R.id.item_home
         bottomNav.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.item_home -> {
-                    Toast.makeText(this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HomeMainActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.item_search -> {
@@ -52,6 +69,7 @@ class HomeMainActivity : AppCompatActivity() {
                 }
                 R.id.item_history -> {
                     startActivity(Intent(this, CreditsActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.item_profile -> {
@@ -62,9 +80,8 @@ class HomeMainActivity : AppCompatActivity() {
             }
         }
 
-        // 4. Lógica del Botón Flotante (+)
         fab.setOnClickListener {
-            startActivity(Intent(this, CreateListActivity::class.java))
+            Toast.makeText(this, "Ya estas en Crear Lista", Toast.LENGTH_SHORT).show()
         }
     }
 }
