@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ProductAdapter(
     private val products: MutableList<Product>,
+    private val onEditClick: (Product) -> Unit,
     private val onDeleteClick: (Product) -> Unit,
     private val onCheckChange: (Product, Boolean) -> Unit
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -19,6 +20,7 @@ class ProductAdapter(
         private val tvQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
         private val tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
         private val cbPurchased: CheckBox = itemView.findViewById(R.id.cbPurchased)
+        private val btnEdit: ImageButton = itemView.findViewById(R.id.btnEditProduct)
         private val btnDelete: ImageButton = itemView.findViewById(R.id.btnDeleteProduct)
 
         fun bind(product: Product) {
@@ -31,6 +33,10 @@ class ProductAdapter(
             cbPurchased.setOnCheckedChangeListener { _, isChecked ->
                 product.isPurchased = isChecked
                 onCheckChange(product, isChecked)
+            }
+
+            btnEdit.setOnClickListener {
+                onEditClick(product)
             }
 
             btnDelete.setOnClickListener {
