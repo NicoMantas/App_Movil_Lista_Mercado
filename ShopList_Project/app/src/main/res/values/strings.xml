@@ -43,4 +43,13 @@
     <string name="credits_text_primary">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</string>
     <string name="credits_text_secondary">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</string>
 
+    <!-- Este es texto para la pantalla crear lista -->
+    <string name="title_create_list">Crea Tu Lista</string>
+    <string name="create_list_description">Crea tu propia lista de mercado, dale un nombre caracteristico y creativo!</string>
+    <string name="label_list_name">Nombre de la Lista: *</string>
+    <string name="hint_list_name">Ej: Lista Mercado 1</string>
+    <string name="label_optional_first_product">Agrega tu primer producto: (Opcional)</string>
+    <string name="label_add_here">Agrega Aqui</string>
+    <string name="button_confirm_create">Confirmar y Crear</string>
+
 </resources>

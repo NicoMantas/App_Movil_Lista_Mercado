@@ -42,6 +42,10 @@
             android:name=".CreditsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".CreateListActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
