@@ -46,6 +46,10 @@
             android:name=".CreateListActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AddProductActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

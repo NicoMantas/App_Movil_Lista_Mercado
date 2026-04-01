@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -13,16 +14,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 
-class CreateListActivity : AppCompatActivity() {
+class AddProductActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_list)
+        setContentView(R.layout.activity_add_product)
 
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        val etListName = findViewById<EditText>(R.id.etListName)
+        val etProductName = findViewById<EditText>(R.id.etProductName)
+        val spinnerCategory = findViewById<Spinner>(R.id.spinnerCategory)
+        val etQuantity = findViewById<EditText>(R.id.etQuantity)
+        val etPrice = findViewById<EditText>(R.id.etPrice)
         val btnAddProduct = findViewById<MaterialButton>(R.id.btnAddProduct)
-        val btnConfirmCreate = findViewById<MaterialButton>(R.id.btnConfirmCreate)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
         val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
@@ -41,17 +44,21 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         btnAddProduct.setOnClickListener {
-            startActivity(Intent(this, AddProductActivity::class.java))
-        }
+            val productName = etProductName.text.toString().trim()
+            val category = spinnerCategory.selectedItem.toString()
+            val quantity = etQuantity.text.toString().trim()
 
-        btnConfirmCreate.setOnClickListener {
-            val listName = etListName.text.toString().trim()
-            if (listName.isEmpty()) {
-                etListName.error = "Ingresa un nombre para la lista"
+            if (productName.isEmpty() || quantity.isEmpty()) {
+                if (productName.isEmpty()) {
+                    etProductName.error = "Ingresa nombre del producto"
+                }
+                if (quantity.isEmpty()) {
+                    etQuantity.error = "Ingresa cantidad"
+                }
                 return@setOnClickListener
             }
-            Toast.makeText(this, "Lista '$listName' creada", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, HomeMainActivity::class.java))
+
+            Toast.makeText(this, "Producto '$productName' agregado a la lista", Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -81,7 +88,7 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener {
-            Toast.makeText(this, "Ya estas en Crear Lista", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Ya estás en Agregar Producto", Toast.LENGTH_SHORT).show()
         }
     }
 }
