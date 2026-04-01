@@ -71,8 +71,16 @@ class LoginActivity : AppCompatActivity() {
 
             // Dentro de btnLogin.setOnClickListener en LoginActivity:
             if (userName != null) {
+                // Guardar sesión en SharedPreferences
+                val sharedPref = getSharedPreferences("SessionData", MODE_PRIVATE)
+                sharedPref.edit().apply {
+                    putBoolean("isLoggedIn", true)
+                    putString("userName", userName)
+                    apply()
+                }
+
                 val intent = Intent(this, HomeMainActivity::class.java)
-                intent.putExtra("USER_NAME", userName) // Mandamos el nombre al MainActivity
+                intent.putExtra("USER_NAME", userName)
                 startActivity(intent)
                 finish()
             } else {

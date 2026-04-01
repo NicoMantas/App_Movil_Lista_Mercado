@@ -47,6 +47,7 @@ class AddProductActivity : AppCompatActivity() {
             val productName = etProductName.text.toString().trim()
             val category = spinnerCategory.selectedItem.toString()
             val quantity = etQuantity.text.toString().trim()
+            val priceText = etPrice.text.toString().trim()
 
             if (productName.isEmpty() || quantity.isEmpty()) {
                 if (productName.isEmpty()) {
@@ -58,7 +59,25 @@ class AddProductActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "Producto '$productName' agregado a la lista", Toast.LENGTH_SHORT).show()
+            val price = priceText.toDoubleOrNull() ?: 0.0
+            val newProduct = Product(
+                id = java.util.UUID.randomUUID().toString(),
+                name = productName,
+                category = category,
+                quantity = quantity.toInt(),
+                price = price
+            )
+
+            val listId = intent.getStringExtra("LIST_ID") ?: java.util.UUID.randomUUID().toString()
+            val listName = intent.getStringExtra("LIST_NAME") ?: "Mi Lista"
+            val products = intent.getSerializableExtra("PRODUCTS") as? ArrayList<Product> ?: arrayListOf()
+            products.add(newProduct)
+
+            val intent = Intent(this, ListDetailsActivity::class.java)
+            intent.putExtra("LIST_ID", listId)
+            intent.putExtra("LIST_NAME", listName)
+            intent.putExtra("PRODUCTS", products)
+            startActivity(intent)
             finish()
         }
 

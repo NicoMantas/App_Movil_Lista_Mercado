@@ -50,6 +50,10 @@
             android:name=".AddProductActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ListDetailsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

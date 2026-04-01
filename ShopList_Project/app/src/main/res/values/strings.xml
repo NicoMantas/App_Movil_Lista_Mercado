@@ -64,4 +64,13 @@
     <string name="hint_product_price">Ej: 10000</string>
     <string name="button_add_product">Agregar Producto</string>
 
+    <!-- Este es texto para la pantalla detalle lista -->
+    <string name="title_list_details">Detalles de la Lista</string>
+    <string name="label_products_count">Productos</string>
+    <string name="label_total_price">Total Estimado:</string>
+    <string name="text_no_products">Sin productos aún</string>
+    <string name="button_finish_list">Finalizar Lista</string>
+    <string name="button_add_more_products">Agregar Más Productos</string>
+    <string name="button_logout">Cerrar Sesión</string>
+
 </resources>
