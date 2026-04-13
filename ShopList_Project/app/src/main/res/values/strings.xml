@@ -76,5 +76,17 @@
     <string name="button_finish_list">Finalizar Lista</string>
     <string name="button_add_more_products">Agregar Más Productos</string>
     <string name="button_logout">Cerrar Sesión</string>
+    <string name="title_activity_splash_compose">SplashActivity_Compose</string>
+    <string name="title_activity_login_compose">LoginActivityCompose</string>
+    <string name="title_activity_register_compose">RegisterActivityCompose</string>
+    <string name="title_activity_recover_password_compose">RecoverPasswordActivityCompose</string>
+    <string name="title_activity_navigation">Navigation</string>
+    <string name="title_activity_home_compose">HomeActivityCompose</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_create_list_compose">CreateListActivityCompose</string>
+    <string name="title_activity_add_product_compose">AddProductActivityCompose</string>
+    <string name="title_activity_list_details_compose">ListDetailsActivityCompose</string>
+    <string name="title_activity_edit_product_compose">EditProductActivityCompose</string>
+    <string name="title_activity_credits_compose">CreditsActivityCompose</string>
 
 </resources>
