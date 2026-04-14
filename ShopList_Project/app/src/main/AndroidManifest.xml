@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.upb.shoplist">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -14,8 +13,9 @@
         android:theme="@style/Theme.ShopList"
         tools:targetApi="36">
 
+        <!-- Pantalla de inicio (LAUNCHER) -->
         <activity
-            android:name=".SplashActivity"
+            android:name=".SplashActivityCompose"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,40 +23,16 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".RecoverPasswordActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".HomeMainActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".CreditsActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".CreateListActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".AddProductActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".EditProductActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ListDetailsActivity"
-            android:exported="false" />
+        <!-- Pantallas en Compose -->
+        <activity android:name=".LoginActivityCompose" />
+        <activity android:name=".RegisterActivityCompose" />
+        <activity android:name=".RecoverPasswordActivityCompose" />
+        <activity android:name=".HomeActivityCompose" />
+        <activity android:name=".CreateListActivityCompose" />
+        <activity android:name=".AddProductActivityCompose" />
+        <activity android:name=".EditProductActivityCompose" />
+        <activity android:name=".ListDetailsActivityCompose" />
+        <activity android:name=".CreditsActivityCompose" />
 
     </application>
 
