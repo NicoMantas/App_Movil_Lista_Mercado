@@ -16,6 +16,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -59,10 +60,9 @@ fun HomeScreen(userName: String) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp), // Altura para permitir el desbordamiento del botón
+                    .height(70.dp),
                 contentAlignment = Alignment.BottomCenter
             ) {
-                // 1. El "Hueco" o muesca circular (el borde blanco que rodea al botón)
                 Surface(
                     modifier = Modifier
                         .size(90.dp)
@@ -71,20 +71,17 @@ fun HomeScreen(userName: String) {
                     color = Color.White
                 ) {}
 
-                // 2. Barra de navegación con esquinas superiores redondeadas y color #181202
                 Surface(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(65.dp),
-                    // Solo redondeamos las esquinas superiores (TopStart y TopEnd)
                     shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-                    color = Color(0xFF181202) // Color solicitado
+                    color = Color(0xFF181202)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxSize(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Grupo Izquierdo
                         Row(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
@@ -105,10 +102,8 @@ fun HomeScreen(userName: String) {
                             )
                         }
 
-                        // Espacio central para que el icono no choque con la curva
                         Spacer(modifier = Modifier.width(90.dp))
 
-                        // Grupo Derecho
                         Row(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
@@ -141,26 +136,24 @@ fun HomeScreen(userName: String) {
                 contentColor = Color.White,
                 shape = RoundedCornerShape(100),
                 modifier = Modifier
-                    .size(64.dp) // Tamaño del botón circular
-                    .offset(y = 50.dp), // Lo baja para que calce en el hueco
+                    .size(64.dp)
+                    .offset(y = 50.dp),
                 elevation = FloatingActionButtonDefaults.elevation(0.dp)
             ) {
                 Icon(
-                    // Aquí usamos el icono del centro (+)
                     painter = painterResource(id = R.drawable.icon_create_list),
                     contentDescription = "Crear",
-                    modifier = Modifier.size(32.dp) // Icono del centro ligeramente más grande
+                    modifier = Modifier.size(32.dp)
                 )
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
         containerColor = Color.White
     ) { paddingValues ->
-        // ... El resto del código del header y listas se mantiene igual
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = paddingValues.calculateBottomPadding()) // Importante para no tapar contenido
+                .padding(bottom = paddingValues.calculateBottomPadding())
         ) {
             // Header
             Box(
@@ -196,6 +189,7 @@ fun HomeScreen(userName: String) {
                 }
             }
 
+            // Bienvenida
             Column(
                 modifier = Modifier.padding(horizontal = 25.dp, vertical = 8.dp)
             ) {
@@ -213,44 +207,150 @@ fun HomeScreen(userName: String) {
                 )
             }
 
+            // Listas guardadas con nuevo diseño
             if (savedLists.isEmpty()) {
                 EmptyStateContent()
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(savedLists) { list ->
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    val intent = Intent(context, ListDetailsActivityCompose::class.java)
-                                    intent.putExtra("LIST_ID", list.id)
-                                    intent.putExtra("LIST_NAME", list.name)
-                                    intent.putExtra("PRODUCTS", ArrayList(list.products))
-                                    context.startActivity(intent)
-                                },
-                            colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5)),
-                            elevation = CardDefaults.cardElevation(4.dp)
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = list.name,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.Black
-                                )
-                                Text(
-                                    text = "${list.products.size} productos - Total: $ ${list.products.sumOf { it.price }}",
-                                    fontSize = 14.sp,
-                                    color = Color.Gray
-                                )
-                            }
+                        val purchasedCount = list.products.count { it.isPurchased }
+                        val totalCount = list.products.size
+                        val progressText = if (totalCount > 0) {
+                            "$purchasedCount/$totalCount Completado"
+                        } else {
+                            "0/0 Completado"
                         }
+
+                        // Obtener primera categoría o "General" si no hay productos
+                        val firstCategory = list.products.firstOrNull()?.category ?: "Sin productos"
+
+                        ModernListCard(
+                            listName = list.name,
+                            progressText = progressText,
+                            category = firstCategory,
+                            progressPercent = if (totalCount > 0) purchasedCount.toFloat() / totalCount else 0f,
+                            onClick = {
+                                val intent = Intent(context, ListDetailsActivityCompose::class.java)
+                                intent.putExtra("LIST_ID", list.id)
+                                intent.putExtra("LIST_NAME", list.name)
+                                intent.putExtra("PRODUCTS", ArrayList(list.products))
+                                context.startActivity(intent)
+                            }
+                        )
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun ModernListCard(
+    listName: String,
+    progressText: String,
+    category: String,
+    progressPercent: Float,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
+        elevation = CardDefaults.cardElevation(4.dp),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            // Título de la lista
+            Text(
+                text = listName,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Progreso con check
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_checkbox_empty),
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                    tint = Color(0xFFFFC123)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = progressText,
+                    fontSize = 14.sp,
+                    color = Color.Black.copy(alpha = 0.7f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            // Categoría
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_kitchen),
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                    tint = Color(0xFFFFC123)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = category,
+                    fontSize = 14.sp,
+                    color = Color.Black.copy(alpha = 0.7f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Barra de progreso
+            LinearProgressIndicator(
+                progress = { progressPercent },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(6.dp)
+                    .clip(RoundedCornerShape(3.dp)),
+                color = Color(0xFFFFC123),
+                trackColor = Color(0xFFFFE0A3)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Botón Ver Lista
+            Button(
+                onClick = onClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFFC123),
+                    contentColor = Color.Black
+                ),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text(
+                    text = "Ver Lista",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }
