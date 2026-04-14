@@ -17,7 +17,7 @@
     <string name="title_login">Iniciar Sesion</string>
     <string name="hint_mail_login">Correo</string>
     <string name="hint_password_login">Contraseña</string>
-    <string name="footer_password_login"><![CDATA[<u>Olvidaste tu constraseña?</u>]]></string>
+    <string name="footer_password_login"><![CDATA[<u>Olvidaste tu contraseña?</u>]]></string>
     <string name="footer_register">No tienes una cuenta ? <![CDATA[<u>Registrate Aqui!</u>]]></string>
 
     <!-- Este es texto para la recuperacion de la contraseña -->

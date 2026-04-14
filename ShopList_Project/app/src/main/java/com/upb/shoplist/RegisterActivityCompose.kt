@@ -120,13 +120,13 @@ fun RegisterScreen(
                 Image(
                     painter = painterResource(id = R.drawable.icon_page),
                     contentDescription = "App Icon",
-                    modifier = Modifier.size(75.dp)
+                    modifier = Modifier.size(70.dp)
                 )
-                Spacer(modifier = Modifier.width(90.dp))
+                Spacer(modifier = Modifier.width(77.dp))
                 Text(
                     text = stringResource(id = R.string.app_name),
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Black,
                     color = Color.Black
                 )
             }
@@ -159,7 +159,7 @@ fun RegisterScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Registro",
+                text = "Crea Una Cuenta",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,

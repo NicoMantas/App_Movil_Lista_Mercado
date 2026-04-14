@@ -132,13 +132,13 @@ fun LoginScreen(
                 Image(
                     painter = painterResource(id = R.drawable.icon_page),
                     contentDescription = "App Icon",
-                    modifier = Modifier.size(75.dp)
+                    modifier = Modifier.size(70.dp)
                 )
-                Spacer(modifier = Modifier.width(90.dp))
+                Spacer(modifier = Modifier.width(77.dp))
                 Text(
                     text = stringResource(id = R.string.app_name),
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Black,
                     color = Color.Black
                 )
             }
@@ -172,8 +172,8 @@ fun LoginScreen(
         ) {
             Text(
                 text = "Iniciar Sesión",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Black,
                 color = Color.Black,
                 modifier = Modifier.padding(bottom = 30.dp)
             )
@@ -284,7 +284,7 @@ fun LoginScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
             // Footer
             TextButton(onClick = onRegisterClick) {
