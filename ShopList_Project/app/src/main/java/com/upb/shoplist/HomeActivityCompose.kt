@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.upb.shoplist.ui.theme.ShopListTheme
-import kotlinx.coroutines.delay
 
 class HomeActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,91 +49,85 @@ class HomeActivityCompose : ComponentActivity() {
 @Composable
 fun HomeScreen(userName: String) {
     val context = LocalContext.current
-    // Usar produceState para cargar datos de forma asíncrona
     val savedLists by produceState<List<ShoppingList>>(initialValue = emptyList()) {
-        // Cargar listas en segundo plano
         value = ShoppingListStorage.getLists(context)
     }
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
+        modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(65.dp),
-                containerColor = Color.Black,
-                tonalElevation = 8.dp
+                    .height(70.dp), // Altura para permitir el desbordamiento del botón
+                contentAlignment = Alignment.BottomCenter
             ) {
-                NavigationBarItem(
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.icon_home),
-                            contentDescription = "Inicio",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    },
-                    selected = true,
-                    onClick = {},
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color(0xFFFFC123),
-                        unselectedIconColor = Color.White
-                    )
-                )
+                // 1. El "Hueco" o muesca circular (el borde blanco que rodea al botón)
+                Surface(
+                    modifier = Modifier
+                        .size(90.dp)
+                        .offset(y = (-5).dp),
+                    shape = RoundedCornerShape(100),
+                    color = Color.White
+                ) {}
 
-                NavigationBarItem(
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.icon_search),
-                            contentDescription = "Buscar",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    },
-                    selected = false,
-                    onClick = { /* TODO */ },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color(0xFFFFC123),
-                        unselectedIconColor = Color.White
-                    )
-                )
+                // 2. Barra de navegación con esquinas superiores redondeadas y color #181202
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(65.dp),
+                    // Solo redondeamos las esquinas superiores (TopStart y TopEnd)
+                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+                    color = Color(0xFF181202) // Color solicitado
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Grupo Izquierdo
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.icon_home),
+                                contentDescription = "Inicio",
+                                tint = Color(0xFFFFC123),
+                                modifier = Modifier.size(28.dp).clickable { /* Home */ }
+                            )
+                            Icon(
+                                painter = painterResource(id = R.drawable.icon_search),
+                                contentDescription = "Buscar",
+                                tint = Color.White,
+                                modifier = Modifier.size(28.dp).clickable { /* Search */ }
+                            )
+                        }
 
-                Spacer(modifier = Modifier.width(56.dp))
+                        // Espacio central para que el icono no choque con la curva
+                        Spacer(modifier = Modifier.width(90.dp))
 
-                NavigationBarItem(
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.icon_history),
-                            contentDescription = "Historial",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    },
-                    selected = false,
-                    onClick = {
-                        context.startActivity(Intent(context, CreditsActivityCompose::class.java))
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color(0xFFFFC123),
-                        unselectedIconColor = Color.White
-                    )
-                )
-
-                NavigationBarItem(
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.icon_profile),
-                            contentDescription = "Perfil",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    },
-                    selected = false,
-                    onClick = { /* TODO */ },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color(0xFFFFC123),
-                        unselectedIconColor = Color.White
-                    )
-                )
+                        // Grupo Derecho
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.icon_history),
+                                contentDescription = "Historial",
+                                tint = Color.White,
+                                modifier = Modifier.size(28.dp).clickable {
+                                    context.startActivity(Intent(context, CreditsActivityCompose::class.java))
+                                }
+                            )
+                            Icon(
+                                painter = painterResource(id = R.drawable.icon_profile),
+                                contentDescription = "Perfil",
+                                tint = Color.White,
+                                modifier = Modifier.size(28.dp).clickable { /* Profile */ }
+                            )
+                        }
+                    }
+                }
             }
         },
         floatingActionButton = {
@@ -144,23 +137,28 @@ fun HomeScreen(userName: String) {
                 },
                 containerColor = Color(0xFFFFC123),
                 contentColor = Color.White,
-                modifier = Modifier.size(56.dp),
-                shape = RoundedCornerShape(28.dp)
+                shape = RoundedCornerShape(100),
+                modifier = Modifier
+                    .size(64.dp) // Tamaño del botón circular
+                    .offset(y = 50.dp), // Lo baja para que calce en el hueco
+                elevation = FloatingActionButtonDefaults.elevation(0.dp)
             ) {
                 Icon(
+                    // Aquí usamos el icono del centro (+)
                     painter = painterResource(id = R.drawable.icon_create_list),
-                    contentDescription = "Crear Lista",
-                    modifier = Modifier.size(32.dp)
+                    contentDescription = "Crear",
+                    modifier = Modifier.size(32.dp) // Icono del centro ligeramente más grande
                 )
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
         containerColor = Color.White
     ) { paddingValues ->
+        // ... El resto del código del header y listas se mantiene igual
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(bottom = paddingValues.calculateBottomPadding()) // Importante para no tapar contenido
         ) {
             // Header
             Box(
@@ -196,7 +194,6 @@ fun HomeScreen(userName: String) {
                 }
             }
 
-            // Bienvenida
             Column(
                 modifier = Modifier.padding(horizontal = 25.dp, vertical = 8.dp)
             ) {
@@ -214,7 +211,6 @@ fun HomeScreen(userName: String) {
                 )
             }
 
-            // Listas guardadas
             if (savedLists.isEmpty()) {
                 EmptyStateContent()
             } else {
