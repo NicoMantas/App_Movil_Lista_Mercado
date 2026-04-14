@@ -96,10 +96,12 @@ fun CreateListScreen() {
                                 }
                             )
                             Icon(
-                                painter = painterResource(id = R.drawable.icon_search),
-                                contentDescription = "Buscar",
+                                painter = painterResource(id = R.drawable.icon_credits),
+                                contentDescription = "Creditos",
                                 tint = Color.White,
-                                modifier = Modifier.size(28.dp).clickable { /* Search */ }
+                                modifier = Modifier.size(28.dp).clickable {
+                                    context.startActivity(Intent(context, CreditsActivityCompose::class.java))
+                                }
                             )
                         }
 
