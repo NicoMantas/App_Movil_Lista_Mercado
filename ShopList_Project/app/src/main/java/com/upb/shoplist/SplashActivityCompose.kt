@@ -76,19 +76,19 @@ fun SplashScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 40.dp),
+                        .padding(top = 50.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.icon_page),
                         contentDescription = "App Icon",
-                        modifier = Modifier.size(90.dp)
+                        modifier = Modifier.size(70.dp)
                     )
 
                     Text(
                         text = stringResource(id = R.string.app_name),
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Black,
                         color = Color.Black,
                         modifier = Modifier.padding(top = 10.dp)
                     )
@@ -107,7 +107,7 @@ fun SplashScreen(
                     contentDescription = "Shopping Cart",
                     modifier = Modifier
                         .size(260.dp)
-                        .padding(top = 10.dp)
+                        .padding(top = 30.dp)
                 )
 
                 Text(
@@ -117,14 +117,14 @@ fun SplashScreen(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp)
+                        .padding(top = 40.dp)
                 )
 
                 // Aumenté el padding superior de 20.dp a 40.dp para bajar los botones
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 40.dp, bottom = 30.dp), // Cambiado de 20.dp a 40.dp
+                        .padding(top = 70.dp, bottom = 30.dp), // Cambiado de 20.dp a 40.dp
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Button(

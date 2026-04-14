@@ -11,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -19,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -44,7 +46,10 @@ class RegisterActivityCompose : ComponentActivity() {
             ShopListTheme {
                 RegisterScreen(
                     context = this,
-                    onBackClick = { finish() },
+                    onBackClick = {
+                        startActivity(Intent(this, SplashActivityCompose::class.java))
+                        finish()
+                    },
                     onLoginClick = {
                         startActivity(Intent(this, LoginActivityCompose::class.java))
                         finish()
@@ -133,11 +138,16 @@ fun RegisterScreen(
             modifier = Modifier
                 .padding(start = 25.dp, top = 10.dp)
                 .size(45.dp)
+                .background(
+                    brush = SolidColor(Color(0xFFFFC123)),
+                    shape = CircleShape
+                )
         ) {
             Icon(
-                imageVector = Icons.Default.ArrowBack,
+                painter = painterResource(id = R.drawable.icon_arrow_left),
                 contentDescription = "Back",
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
             )
         }
 
