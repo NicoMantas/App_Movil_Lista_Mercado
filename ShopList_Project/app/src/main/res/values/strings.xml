@@ -88,5 +88,8 @@
     <string name="title_activity_list_details_compose">ListDetailsActivityCompose</string>
     <string name="title_activity_edit_product_compose">EditProductActivityCompose</string>
     <string name="title_activity_credits_compose">CreditsActivityCompose</string>
+    <string name="title_activity_history_compose">HistoryActivityCompose</string>
+    <string name="title_activity_list_detail_history_compose">ListDetailHistoryActivityCompose
+    </string>
 
 </resources>

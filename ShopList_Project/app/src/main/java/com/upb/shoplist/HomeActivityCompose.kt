@@ -113,7 +113,7 @@ fun HomeScreen(userName: String) {
                                 contentDescription = "Historial",
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
-                                    context.startActivity(Intent(context, CreditsActivityCompose::class.java))
+                                    context.startActivity(Intent(context, HistoryActivityCompose::class.java))
                                 }
                             )
                             Icon(
