@@ -12,18 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopList"
         tools:targetApi="36">
-
-        <!-- Pantalla de inicio (LAUNCHER) -->
+        <activity
+            android:name=".ProfileActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_profile_compose"
+            android:theme="@style/Theme.ShopList" />
+        <activity
+            android:name=".ListDetailHistoryActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_list_detail_history_compose"
+            android:theme="@style/Theme.ShopList" />
+        <activity
+            android:name=".HistoryActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_history_compose"
+            android:theme="@style/Theme.ShopList" /> <!-- Pantalla de inicio (LAUNCHER) -->
         <activity
             android:name=".SplashActivityCompose"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Pantallas en Compose -->
+        </activity> <!-- Pantallas en Compose -->
         <activity android:name=".LoginActivityCompose" />
         <activity android:name=".RegisterActivityCompose" />
         <activity android:name=".RecoverPasswordActivityCompose" />
@@ -33,7 +45,6 @@
         <activity android:name=".EditProductActivityCompose" />
         <activity android:name=".ListDetailsActivityCompose" />
         <activity android:name=".CreditsActivityCompose" />
-
     </application>
 
 </manifest>
