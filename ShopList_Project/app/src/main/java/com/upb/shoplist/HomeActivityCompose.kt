@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.upb.shoplist.ui.theme.ShopListTheme
+import kotlinx.coroutines.launch
 
 class HomeActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +51,15 @@ class HomeActivityCompose : ComponentActivity() {
 @Composable
 fun HomeScreen(userName: String) {
     val context = LocalContext.current
-    val savedLists by produceState<List<ShoppingList>>(initialValue = emptyList()) {
-        value = ShoppingListStorage.getLists(context)
+    val scope = rememberCoroutineScope()
+    var savedLists by remember { mutableStateOf<List<ShoppingList>>(emptyList()) }
+    var isLoading by remember { mutableStateOf(true) }
+
+    // Cargar listas al inicio
+    LaunchedEffect(Unit) {
+        isLoading = true
+        savedLists = ShoppingListStorage.getLists(context)
+        isLoading = false
     }
 
     Scaffold(
@@ -86,12 +94,16 @@ fun HomeScreen(userName: String) {
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
+                            // Home - AMARILLO (pantalla actual)
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_home),
                                 contentDescription = "Inicio",
                                 tint = Color(0xFFFFC123),
-                                modifier = Modifier.size(28.dp).clickable { /* Home */ }
+                                modifier = Modifier.size(28.dp).clickable {
+                                    // Ya estamos en Home
+                                }
                             )
+                            // Creditos - Blanco
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_credits),
                                 contentDescription = "Creditos",
@@ -108,19 +120,27 @@ fun HomeScreen(userName: String) {
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
+                            // Historial - Blanco
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_history),
                                 contentDescription = "Historial",
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
-                                    context.startActivity(Intent(context, HistoryActivityCompose::class.java))
+                                    val intent = Intent(context, HistoryActivityCompose::class.java)
+                                    intent.putExtra("USER_NAME", userName)
+                                    context.startActivity(intent)
                                 }
                             )
+                            // Perfil - Blanco
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_profile),
                                 contentDescription = "Perfil",
                                 tint = Color.White,
-                                modifier = Modifier.size(28.dp).clickable { /* Profile */ }
+                                modifier = Modifier.size(28.dp).clickable {
+                                    val intent = Intent(context, ProfileActivityCompose::class.java)
+                                    intent.putExtra("USER_NAME", userName)
+                                    context.startActivity(intent)
+                                }
                             )
                         }
                     }
@@ -207,40 +227,50 @@ fun HomeScreen(userName: String) {
                 )
             }
 
-            // Listas guardadas con nuevo diseño
-            if (savedLists.isEmpty()) {
-                EmptyStateContent()
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(savedLists) { list ->
-                        val purchasedCount = list.products.count { it.isPurchased }
-                        val totalCount = list.products.size
-                        val progressText = if (totalCount > 0) {
-                            "$purchasedCount/$totalCount Completado"
-                        } else {
-                            "0/0 Completado"
-                        }
-
-                        // Obtener primera categoría o "General" si no hay productos
-                        val firstCategory = list.products.firstOrNull()?.category ?: "Sin productos"
-
-                        ModernListCard(
-                            listName = list.name,
-                            progressText = progressText,
-                            category = firstCategory,
-                            progressPercent = if (totalCount > 0) purchasedCount.toFloat() / totalCount else 0f,
-                            onClick = {
-                                val intent = Intent(context, ListDetailsActivityCompose::class.java)
-                                intent.putExtra("LIST_ID", list.id)
-                                intent.putExtra("LIST_NAME", list.name)
-                                intent.putExtra("PRODUCTS", ArrayList(list.products))
-                                context.startActivity(intent)
+            // Mostrar loading o contenido
+            when {
+                isLoading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(color = Color(0xFFFFC123))
+                    }
+                }
+                savedLists.isEmpty() -> {
+                    EmptyStateContent()
+                }
+                else -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(savedLists) { list ->
+                            val purchasedCount = list.products.count { it.isPurchased }
+                            val totalCount = list.products.size
+                            val progressText = if (totalCount > 0) {
+                                "$purchasedCount/$totalCount Completado"
+                            } else {
+                                "0/0 Completado"
                             }
-                        )
+
+                            val firstCategory = list.products.firstOrNull()?.category ?: "Sin productos"
+
+                            ModernListCard(
+                                listName = list.name,
+                                progressText = progressText,
+                                category = firstCategory,
+                                progressPercent = if (totalCount > 0) purchasedCount.toFloat() / totalCount else 0f,
+                                onClick = {
+                                    val intent = Intent(context, ListDetailsActivityCompose::class.java)
+                                    intent.putExtra("LIST_ID", list.id)
+                                    intent.putExtra("LIST_NAME", list.name)
+                                    intent.putExtra("PRODUCTS", ArrayList(list.products))
+                                    context.startActivity(intent)
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -271,7 +301,6 @@ fun ModernListCard(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Título de la lista
             Text(
                 text = listName,
                 fontSize = 18.sp,
@@ -281,7 +310,6 @@ fun ModernListCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Progreso con check
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -301,7 +329,6 @@ fun ModernListCard(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Categoría
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -321,7 +348,6 @@ fun ModernListCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Barra de progreso
             LinearProgressIndicator(
                 progress = { progressPercent },
                 modifier = Modifier
@@ -334,7 +360,6 @@ fun ModernListCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Botón Ver Lista
             Button(
                 onClick = onClick,
                 modifier = Modifier
@@ -386,10 +411,10 @@ fun EmptyStateContent() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    ShopListTheme {
-        HomeScreen(userName = "Preview")
+    @Preview(showBackground = true)
+    @Composable
+    fun HomeScreenPreview() {
+        ShopListTheme {
+            HomeScreen(userName = "Preview")
+        }
     }
-}
