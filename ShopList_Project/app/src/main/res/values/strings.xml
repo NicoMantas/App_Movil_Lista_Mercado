@@ -91,5 +91,6 @@
     <string name="title_activity_history_compose">HistoryActivityCompose</string>
     <string name="title_activity_list_detail_history_compose">ListDetailHistoryActivityCompose
     </string>
+    <string name="title_activity_profile_compose">ProfileActivityCompose</string>
 
 </resources>
