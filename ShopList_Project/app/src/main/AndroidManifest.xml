@@ -13,6 +13,11 @@
         android:theme="@style/Theme.ShopList"
         tools:targetApi="36">
         <activity
+            android:name=".SessionManager"
+            android:exported="false"
+            android:label="@string/title_activity_session_manager"
+            android:theme="@style/Theme.ShopList" />
+        <activity
             android:name=".ProfileActivityCompose"
             android:exported="false"
             android:label="@string/title_activity_profile_compose"

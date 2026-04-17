@@ -57,10 +57,10 @@ fun CreditsScreen() {
     // Datos de los integrantes
     val teamMembers = listOf(
         TeamMember(
-            name = "Juan Pérez",
+            name = "Nicolás Mantilla Gelves",
             role = "Desarrollador Principal",
             description = "Encargado de la arquitectura de la app y la lógica de negocio.",
-            initial = "JP"
+            initial = "NM"
         ),
         TeamMember(
             name = "María García",
@@ -104,47 +104,60 @@ fun CreditsScreen() {
                         modifier = Modifier.fillMaxSize(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        // Primer grupo - Home y Creditos
                         Row(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
+                            // Home - Blanco
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_home),
                                 contentDescription = "Inicio",
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
-                                    context.startActivity(Intent(context, HomeActivityCompose::class.java))
+                                    val intent = Intent(context, HomeActivityCompose::class.java)
+                                    context.startActivity(intent)
+                                    (context as? ComponentActivity)?.finish()
                                 }
                             )
+                            // Creditos - AMARILLO (pantalla actual)
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_credits),
                                 contentDescription = "Creditos",
-                                tint = Color.White,
+                                tint = Color(0xFFFFC123),
                                 modifier = Modifier.size(28.dp).clickable {
-                                    context.startActivity(Intent(context, CreditsActivityCompose::class.java))
+                                    // Ya estamos en Creditos
                                 }
                             )
                         }
 
                         Spacer(modifier = Modifier.width(90.dp))
 
+                        // Segundo grupo - Historial y Perfil
                         Row(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
+                            // Historial - Blanco
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_history),
                                 contentDescription = "Historial",
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
-                                    context.startActivity(Intent(context, CreditsActivityCompose::class.java))
+                                    val intent = Intent(context, HistoryActivityCompose::class.java)
+                                    context.startActivity(intent)
+                                    (context as? ComponentActivity)?.finish()
                                 }
                             )
+                            // Perfil - Blanco
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_profile),
                                 contentDescription = "Perfil",
                                 tint = Color.White,
-                                modifier = Modifier.size(28.dp).clickable { /* Profile */ }
+                                modifier = Modifier.size(28.dp).clickable {
+                                    val intent = Intent(context, ProfileActivityCompose::class.java)
+                                    context.startActivity(intent)
+                                }
                             )
                         }
                     }
@@ -153,7 +166,9 @@ fun CreditsScreen() {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* FAB central */ },
+                onClick = {
+                    context.startActivity(Intent(context, CreateListActivityCompose::class.java))
+                },
                 containerColor = Color(0xFFFFC123),
                 contentColor = Color.White,
                 shape = RoundedCornerShape(100),
@@ -178,7 +193,7 @@ fun CreditsScreen() {
                 .padding(bottom = paddingValues.calculateBottomPadding())
                 .verticalScroll(rememberScrollState())
         ) {
-            // Header con imagen de fondo y título de la app
+            // Header con imagen de fondo
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -213,7 +228,7 @@ fun CreditsScreen() {
                 }
             }
 
-            // Botón de retroceso debajo del header
+            // Botón de retroceso
             IconButton(
                 onClick = { (context as? ComponentActivity)?.finish() },
                 modifier = Modifier
@@ -265,7 +280,6 @@ fun CreditsScreen() {
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
-            // Espacio adicional al final
             Spacer(modifier = Modifier.height(32.dp))
         }
     }

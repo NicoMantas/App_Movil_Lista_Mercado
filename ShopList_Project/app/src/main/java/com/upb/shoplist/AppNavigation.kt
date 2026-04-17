@@ -41,35 +41,19 @@ fun AppNavigation() {
         }
 
         composable(Screen.Login.route) {
-            LoginScreen(
-                context = context,
-                onBackClick = { navController.popBackStack() },
-                onRegisterClick = {
-                    navController.navigate(Screen.Register.route) {
-                        popUpTo(Screen.Login.route) { inclusive = true }
-                    }
-                },
-                onForgotPasswordClick = {
-                    navController.navigate(Screen.Recover.route)
-                },
-                onLoginSuccess = { userName ->
-                    val sharedPref = context.getSharedPreferences("SessionData", Context.MODE_PRIVATE)
-                    sharedPref.edit().apply {
-                        putBoolean("isLoggedIn", true)
-                        putString("userName", userName)
-                        apply()
-                    }
-                    val intent = Intent(context, HomeActivityCompose::class.java)
-                    intent.putExtra("USER_NAME", userName)
-                    context.startActivity(intent)
-                }
-            )
+            // LoginScreen NO recibe parámetros, usa navegación con Intents internamente
+            LoginScreen()
         }
 
         composable(Screen.Register.route) {
+            // RegisterScreen necesita estos parámetros
             RegisterScreen(
                 context = context,
-                onBackClick = { navController.popBackStack() },
+                onBackClick = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Register.route) { inclusive = true }
+                    }
+                },
                 onLoginClick = {
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.Register.route) { inclusive = true }
@@ -84,10 +68,15 @@ fun AppNavigation() {
         }
 
         composable(Screen.Recover.route) {
+            // RecoverPasswordScreen necesita estos parámetros
             RecoverPasswordScreen(
                 context = context,
-                onBackClick = { navController.popBackStack() },
-                onComplete = { navController.popBackStack() }
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onComplete = {
+                    navController.popBackStack()
+                }
             )
         }
     }

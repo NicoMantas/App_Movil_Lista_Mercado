@@ -34,13 +34,17 @@ class HomeActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sessionManager = SessionManager(this)
+        val userName = sessionManager.getUserName()
+
         setContent {
             ShopListTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color.White
                 ) {
-                    HomeScreen(userName = intent.getStringExtra("USER_NAME") ?: "User")
+                    HomeScreen(userName = userName)
                 }
             }
         }
