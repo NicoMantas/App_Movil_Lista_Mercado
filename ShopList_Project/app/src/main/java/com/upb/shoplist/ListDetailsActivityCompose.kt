@@ -64,7 +64,6 @@ fun ListDetailsScreen(
 ) {
     val context = LocalContext.current
     var productList by remember { mutableStateOf(products) }
-    var showSnackbar by remember { mutableStateOf(false) }
 
     val purchasedCount = productList.count { it.isPurchased }
     val totalCount = productList.size
@@ -73,20 +72,6 @@ fun ListDetailsScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        snackbarHost = {
-            SnackbarHost(
-                hostState = remember { SnackbarHostState() }
-            ) {
-                Snackbar(
-                    modifier = Modifier.padding(16.dp),
-                    action = null,
-                    containerColor = Color(0xFF333333),
-                    contentColor = Color.White
-                ) {
-                    Text("No se ha completado la lista. Marca todos los productos como comprados.")
-                }
-            }
-        },
         bottomBar = {
             Box(
                 modifier = Modifier
@@ -117,6 +102,7 @@ fun ListDetailsScreen(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
+                            // CORREGIDO: usar painterResource
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_home),
                                 contentDescription = "Inicio",
@@ -125,6 +111,7 @@ fun ListDetailsScreen(
                                     context.startActivity(Intent(context, HomeActivityCompose::class.java))
                                 }
                             )
+                            // CORREGIDO: usar painterResource
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_credits),
                                 contentDescription = "Creditos",
@@ -141,19 +128,24 @@ fun ListDetailsScreen(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
+                            // CORREGIDO: usar painterResource
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_history),
                                 contentDescription = "Historial",
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
-                                    context.startActivity(Intent(context, CreditsActivityCompose::class.java))
+                                    context.startActivity(Intent(context, HistoryActivityCompose::class.java))
                                 }
                             )
+                            // CORREGIDO: usar painterResource
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_profile),
                                 contentDescription = "Perfil",
                                 tint = Color.White,
-                                modifier = Modifier.size(28.dp).clickable { /* Profile */ }
+                                modifier = Modifier.size(28.dp).clickable {
+                                    val intent = Intent(context, ProfileActivityCompose::class.java)
+                                    context.startActivity(intent)
+                                }
                             )
                         }
                     }
@@ -162,7 +154,9 @@ fun ListDetailsScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* FAB central */ },
+                onClick = {
+                    context.startActivity(Intent(context, CreateListActivityCompose::class.java))
+                },
                 containerColor = Color(0xFFFFC123),
                 contentColor = Color.White,
                 shape = RoundedCornerShape(100),
@@ -186,7 +180,7 @@ fun ListDetailsScreen(
                 .fillMaxSize()
                 .padding(bottom = paddingValues.calculateBottomPadding())
         ) {
-            // Header con imagen de fondo y título de la app
+            // Header
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -199,7 +193,6 @@ fun ListDetailsScreen(
                     contentScale = ContentScale.Crop
                 )
 
-                // Logo y título de la app
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -221,7 +214,7 @@ fun ListDetailsScreen(
                 }
             }
 
-            // Botón de retroceso debajo del header
+            // Botón de retroceso
             IconButton(
                 onClick = { (context as? ComponentActivity)?.finish() },
                 modifier = Modifier
@@ -253,7 +246,6 @@ fun ListDetailsScreen(
                     color = Color.Black
                 )
 
-                // Progreso de la lista
                 if (totalCount > 0) {
                     Row(
                         modifier = Modifier.padding(top = 8.dp),
@@ -381,7 +373,6 @@ fun ListDetailsScreen(
                     )
                 }
 
-                // Botón Finalizar Lista con validación
                 Button(
                     onClick = {
                         if (isAllCompleted) {
@@ -393,8 +384,6 @@ fun ListDetailsScreen(
                             ShoppingListStorage.saveOrUpdateList(context, updatedList)
                             (context as? ComponentActivity)?.finish()
                         } else {
-                            showSnackbar = true
-                            // Mostrar un mensaje visual
                             android.widget.Toast.makeText(
                                 context,
                                 "No se ha completado la lista. Marca todos los productos como comprados.",

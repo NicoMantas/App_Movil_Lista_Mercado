@@ -33,13 +33,17 @@ class HistoryActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sessionManager = SessionManager(this)
+        val userName = sessionManager.getUserName()
+
         setContent {
             ShopListTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color.White
                 ) {
-                    HistoryScreen(userName = intent.getStringExtra("USER_NAME") ?: "User")
+                    HistoryScreen(userName = userName)
                 }
             }
         }
@@ -54,27 +58,23 @@ fun HistoryScreen(userName: String) {
     var savedLists by remember { mutableStateOf<List<ShoppingList>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
 
-    // Cargar listas al inicio
     LaunchedEffect(Unit) {
         isLoading = true
         savedLists = ShoppingListStorage.getLists(context)
         isLoading = false
     }
 
-    // Filtrar solo las listas completadas (todos los productos marcados como comprados)
     val completedLists = remember(savedLists) {
         savedLists.filter { list ->
             list.products.isNotEmpty() && list.products.all { it.isPurchased }
         }
     }
 
-    // Función para restaurar una lista (marcar como no completada)
     fun restoreList(listId: String) {
         scope.launch {
             val currentLists = savedLists.toMutableList()
             val index = currentLists.indexOfFirst { it.id == listId }
             if (index >= 0) {
-                // Marcar todos los productos como no comprados
                 val restoredProducts = currentLists[index].products.map { product ->
                     product.copy(isPurchased = false)
                 }
@@ -124,7 +124,6 @@ fun HistoryScreen(userName: String) {
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
                                     val intent = Intent(context, HomeActivityCompose::class.java)
-                                    intent.putExtra("USER_NAME", userName)
                                     context.startActivity(intent)
                                     (context as? ComponentActivity)?.finish()
                                 }
@@ -150,7 +149,6 @@ fun HistoryScreen(userName: String) {
                                 contentDescription = "Historial",
                                 tint = Color(0xFFFFC123),
                                 modifier = Modifier.size(28.dp).clickable {
-                                    // Ya estamos en History, refrescar
                                     scope.launch {
                                         savedLists = ShoppingListStorage.getLists(context)
                                     }
@@ -161,7 +159,8 @@ fun HistoryScreen(userName: String) {
                                 contentDescription = "Perfil",
                                 tint = Color.White,
                                 modifier = Modifier.size(28.dp).clickable {
-                                    // TODO: Implementar pantalla de perfil
+                                    val intent = Intent(context, ProfileActivityCompose::class.java)
+                                    context.startActivity(intent)
                                 }
                             )
                         }
@@ -249,7 +248,6 @@ fun HistoryScreen(userName: String) {
                 )
             }
 
-            // Mostrar loading o contenido
             when {
                 isLoading -> {
                     Box(
@@ -287,7 +285,6 @@ fun HistoryScreen(userName: String) {
                                     restoreList(restoredListId)
                                 },
                                 onClick = {
-                                    // CAMBIADO: Usar ListDetailHistoryActivityCompose en lugar de ListDetailsActivityCompose
                                     val intent = Intent(context, ListDetailHistoryActivityCompose::class.java)
                                     intent.putExtra("LIST_ID", list.id)
                                     intent.putExtra("LIST_NAME", list.name)
@@ -317,7 +314,6 @@ fun HistoryListCard(
 ) {
     var showRestoreDialog by remember { mutableStateOf(false) }
 
-    // Diálogo de confirmación para restaurar
     if (showRestoreDialog) {
         AlertDialog(
             onDismissRequest = { showRestoreDialog = false },
@@ -357,7 +353,6 @@ fun HistoryListCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Botón de restaurar
             IconButton(
                 onClick = { showRestoreDialog = true },
                 modifier = Modifier.size(40.dp)
@@ -386,7 +381,6 @@ fun HistoryListCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // Categoría
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_kitchen),
@@ -401,7 +395,6 @@ fun HistoryListCard(
                             color = Color.Black.copy(alpha = 0.6f)
                         )
                     }
-                    // Cantidad de productos
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_products),
@@ -416,7 +409,6 @@ fun HistoryListCard(
                             color = Color.Black.copy(alpha = 0.6f)
                         )
                     }
-                    // Precio total
                     if (totalPrice > 0) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(

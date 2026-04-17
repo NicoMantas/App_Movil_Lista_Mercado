@@ -35,6 +35,11 @@ class ProfileActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sessionManager = SessionManager(this)
+        val userName = sessionManager.getUserName()
+        val userEmail = sessionManager.getUserEmail()
+
         setContent {
             ShopListTheme {
                 Surface(
@@ -42,8 +47,8 @@ class ProfileActivityCompose : ComponentActivity() {
                     color = Color.White
                 ) {
                     ProfileScreen(
-                        userName = intent.getStringExtra("USER_NAME") ?: "Usuario",
-                        userEmail = intent.getStringExtra("USER_EMAIL") ?: "usuario@email.com"
+                        userName = userName,
+                        userEmail = userEmail
                     )
                 }
             }
@@ -64,11 +69,9 @@ fun ProfileScreen(
     var currentUserName by remember { mutableStateOf(userName) }
     var currentUserEmail by remember { mutableStateOf(userEmail) }
 
-    // Estados para edición
     var tempName by remember { mutableStateOf(currentUserName) }
     var tempEmail by remember { mutableStateOf(currentUserEmail) }
 
-    // Estados para cambio de contraseña
     var currentPassword by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -194,7 +197,6 @@ fun ProfileScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            // Barra de navegación inferior
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -216,10 +218,12 @@ fun ProfileScreen(
                     shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
                     color = Color(0xFF181202)
                 ) {
+                    // ✅ CORREGIDO: Row principal con fillMaxSize()
                     Row(
                         modifier = Modifier.fillMaxSize(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        // Primer grupo - Home y Creditos
                         Row(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
@@ -247,6 +251,7 @@ fun ProfileScreen(
 
                         Spacer(modifier = Modifier.width(90.dp))
 
+                        // Segundo grupo - Historial y Perfil
                         Row(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.SpaceEvenly
@@ -265,7 +270,7 @@ fun ProfileScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.icon_profile),
                                 contentDescription = "Perfil",
-                                tint = Color(0xFFFFC123), // Amarillo porque estamos en Perfil
+                                tint = Color(0xFFFFC123),
                                 modifier = Modifier.size(28.dp).clickable {
                                     // Ya estamos en Perfil
                                 }
@@ -303,7 +308,7 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .padding(bottom = paddingValues.calculateBottomPadding())
         ) {
-            // Header con imagen de fondo
+            // Header
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -337,7 +342,7 @@ fun ProfileScreen(
                 }
             }
 
-            // Avatar del usuario
+            // Avatar
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -359,9 +364,7 @@ fun ProfileScreen(
                             )
                         }
                     }
-
                     Spacer(modifier = Modifier.height(8.dp))
-
                     Text(
                         text = currentUserName,
                         fontSize = 18.sp,
@@ -371,7 +374,7 @@ fun ProfileScreen(
                 }
             }
 
-            // Título "Perfil"
+            // Título Perfil
             Text(
                 text = "Perfil",
                 fontSize = 24.sp,
@@ -380,7 +383,7 @@ fun ProfileScreen(
                 modifier = Modifier.padding(start = 25.dp, top = 20.dp)
             )
 
-            // Campo Nombre (debajo del título)
+            // Campo Nombre
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -446,14 +449,13 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Botones en la misma fila (Cambiar Contraseña y Editar Perfil)
+            // Botones en fila
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // Botón Cambiar Contraseña
                 Button(
                     onClick = { showPasswordDialog = true },
                     modifier = Modifier
@@ -485,7 +487,6 @@ fun ProfileScreen(
                     }
                 }
 
-                // Botón Editar Perfil
                 Button(
                     onClick = { showEditDialog = true },
                     modifier = Modifier
@@ -518,7 +519,6 @@ fun ProfileScreen(
                 }
             }
 
-            // Botón Cerrar Sesión
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
