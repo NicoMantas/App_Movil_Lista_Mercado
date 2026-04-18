@@ -63,16 +63,16 @@ fun CreditsScreen() {
             initial = "NM"
         ),
         TeamMember(
-            name = "María García",
-            role = "Diseñadora UI/UX",
-            description = "Responsable del diseño de interfaces y experiencia de usuario.",
-            initial = "MG"
+            name = "Santiago Maya",
+            role = "Desarrollador Principal Diseñadora UI/UX",
+            description = "Responsable de las listas de mercado y su funcionalidad.",
+            initial = "SM"
         ),
         TeamMember(
-            name = "Carlos López",
+            name = "Santiago Posso",
             role = "Desarrollador Mobile",
             description = "Implementación de funcionalidades y pruebas de calidad.",
-            initial = "CL"
+            initial = "SP"
         )
     )
 
