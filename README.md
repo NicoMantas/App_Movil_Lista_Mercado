@@ -46,6 +46,7 @@ Entrega_3/
 
 **Paquete de la app:** `com.upb.shoplist`  
 **Requisitos orientativos:** `minSdk` 24, `targetSdk` / `compileSdk` 36 (según `app/build.gradle.kts`).
+**https://www.privacypolicies.com/live/1b30614b-d849-45d2-878b-94b619515163**
 
 ## Funcionalidades
 
@@ -76,5 +77,5 @@ https://www.figma.com/design/sqAzNwD2AC3ipsWivzR166/Entrega-3?node-id=0-1&t=VVoU
 ## Autores
 
 1. **Nicolas Mantilla Gelves**
-2. **_(Nombre del autor 2)_**
-3. **_(Nombre del autor 3)_**
+2. **Santiago Maya Horta**
+3. **Santiago Posso Acevedo**
