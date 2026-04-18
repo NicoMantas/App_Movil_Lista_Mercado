@@ -187,31 +187,31 @@ fun HomeScreen(userName: String) {
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.background_header_2),
-                    contentDescription = "Header",
+                    contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp, top = 45.dp),
+                        .padding(start = 25.dp, top = 50.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.icon_page),
+                        painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                         contentDescription = "Logo",
-                        modifier = Modifier.size(60.dp)
+                        modifier = Modifier.size(75.dp)
                     )
-                    Spacer(modifier = Modifier.width(75.dp))
+                    Spacer(modifier = Modifier.width(15.dp))
                     Text(
-                        text = stringResource(R.string.app_name),
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
+                        text = "ShopList",
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.ExtraBold,
                         color = Color.Black
                     )
                 }
             }
+
 
             // Bienvenida
             Column(

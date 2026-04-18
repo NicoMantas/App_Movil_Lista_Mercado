@@ -28,6 +28,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.upb.shoplist.ui.theme.ShopListTheme
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+
 
 class HistoryActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -204,31 +214,36 @@ fun HistoryScreen(userName: String) {
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.background_header_2),
-                    contentDescription = "Header",
+                    contentDescription = "Header Background",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp, top = 45.dp),
+                        .padding(start = 25.dp, top = 50.dp), // Ajustado para mejor centrado vertical
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Logo con transparencia
                     Image(
-                        painter = painterResource(id = R.drawable.icon_page),
+                        painter = painterResource(id = R.mipmap.ic_launcher_foreground), // Usa el foreground que configuramos antes
                         contentDescription = "Logo",
-                        modifier = Modifier.size(60.dp)
+                        modifier = Modifier
+                            .size(75.dp) // Un poco más grande para que luzca
+                            .clip(RoundedCornerShape(12.dp)) // un leve redondeado pa q se vea bien
                     )
-                    Spacer(modifier = Modifier.width(75.dp))
+
+                    Spacer(modifier = Modifier.width(15.dp)) // Menos espacio para que el texto no se pegue al borde
+
                     Text(
                         text = stringResource(R.string.app_name),
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontSize = 32.sp, // Aumentado para resaltar el nombre de la app
+                        fontWeight = FontWeight.ExtraBold,
                         color = Color.Black
                     )
                 }
             }
+
 
             // Título de Historial
             Column(
@@ -314,18 +329,17 @@ fun HistoryListCard(
 ) {
     var showRestoreDialog by remember { mutableStateOf(false) }
 
+    // lógica de diálogo original
     if (showRestoreDialog) {
         AlertDialog(
             onDismissRequest = { showRestoreDialog = false },
             title = { Text("Restaurar lista") },
             text = { Text("¿Deseas volver a usar esta lista? Los productos se marcarán como pendientes.") },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        onRestore(listId)
-                        showRestoreDialog = false
-                    }
-                ) {
+                TextButton(onClick = {
+                    onRestore(listId)
+                    showRestoreDialog = false
+                }) {
                     Text("Restaurar", color = Color(0xFF4CAF50))
                 }
             },
@@ -337,13 +351,12 @@ fun HistoryListCard(
         )
     }
 
+    // Nueva UI mejorada
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -353,6 +366,7 @@ fun HistoryListCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Botón de Restaurar a la izquierda
             IconButton(
                 onClick = { showRestoreDialog = true },
                 modifier = Modifier.size(40.dp)
@@ -361,76 +375,82 @@ fun HistoryListCard(
                     painter = painterResource(id = R.drawable.icon_restore),
                     contentDescription = "Restaurar",
                     tint = Color(0xFF4CAF50),
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(26.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
+            // Información Central
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = listName,
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+
+                // Fecha o categoría secundaria
+                Text(
+                    text = "Finalizada",
+                    fontSize = 11.sp,
+                    color = Color.Gray
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Fila de detalles con fondo suave (Tags)
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.icon_kitchen),
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp),
-                            tint = Color(0xFFFFC123)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = category,
-                            fontSize = 12.sp,
-                            color = Color.Black.copy(alpha = 0.6f)
-                        )
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.icon_products),
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp),
-                            tint = Color(0xFFFFC123)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "$itemCount productos",
-                            fontSize = 12.sp,
-                            color = Color.Black.copy(alpha = 0.6f)
-                        )
-                    }
-                    if (totalPrice > 0) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.icon_price),
-                                contentDescription = null,
-                                modifier = Modifier.size(14.dp),
-                                tint = Color(0xFFFFC123)
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = "$${String.format("%.2f", totalPrice)}",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFFFFC123)
-                            )
-                        }
-                    }
+                    // Tag de Categoría
+                    DetalleTag(painterResource(id = R.drawable.icon_kitchen), category)
+                    // Tag de Cantidad
+                    DetalleTag(painterResource(id = R.drawable.icon_products), "$itemCount prod.")
                 }
+            }
+
+            // Precio destacado a la derecha
+            if (totalPrice > 0) {
+                Text(
+                    text = "$${String.format("%.2f", totalPrice)}",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color(0xFFFFC123) // Tu color amarillo/mostaza
+                )
             }
         }
     }
 }
+
+// Función auxiliar para los Tags
+@Composable
+fun DetalleTag(painter: androidx.compose.ui.graphics.painter.Painter, texto: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .background(Color(0xFFF5F5F5), RoundedCornerShape(6.dp))
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+    ) {
+        Icon(
+            painter = painter,
+            contentDescription = null,
+            modifier = Modifier.size(12.dp),
+            tint = Color(0xFFFFC123)
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = texto,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.DarkGray
+        )
+    }
+}
+
+
+
 
 @Composable
 fun EmptyHistoryContent() {
@@ -469,5 +489,42 @@ fun EmptyHistoryContent() {
 fun HistoryScreenPreview() {
     ShopListTheme {
         HistoryScreen(userName = "Preview")
+    }
+}
+
+@Composable //este es para que los demass llamen a este header
+fun MainHeader(titulo: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.background_header_2),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 25.dp, top = 50.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.mipmap.ic_launcher_foreground),
+                contentDescription = "Logo",
+                modifier = Modifier.size(75.dp)
+            )
+
+            Spacer(modifier = Modifier.width(15.dp))
+
+            Text(
+                text = titulo, // Aquí pasamos el nombre de la vista
+                fontSize = 32.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.Black
+            )
+        }
     }
 }
