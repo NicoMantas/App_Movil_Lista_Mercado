@@ -201,28 +201,31 @@ fun CreditsScreen() {
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.background_header_2),
-                    contentDescription = "Header",
+                    contentDescription = "Header Background",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
-
-                // Logo y título de la app
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp, top = 45.dp),
+                        .padding(start = 25.dp, top = 50.dp), // Ajustado para mejor centrado vertical
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Logo con transparencia
                     Image(
-                        painter = painterResource(id = R.drawable.icon_page),
+                        painter = painterResource(id = R.mipmap.ic_launcher_foreground), // Usa el foreground que configuramos antes
                         contentDescription = "Logo",
-                        modifier = Modifier.size(60.dp)
+                        modifier = Modifier
+                            .size(75.dp) // Un poco más grande para que luzca
+                            .clip(RoundedCornerShape(12.dp)) // un leve redondeado pa q se vea bien
                     )
-                    Spacer(modifier = Modifier.width(75.dp))
+
+                    Spacer(modifier = Modifier.width(15.dp)) // Menos espacio para que el texto no se pegue al borde
+
                     Text(
                         text = stringResource(R.string.app_name),
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontSize = 32.sp, // Aumentado para resaltar el nombre de la app
+                        fontWeight = FontWeight.ExtraBold,
                         color = Color.Black
                     )
                 }
