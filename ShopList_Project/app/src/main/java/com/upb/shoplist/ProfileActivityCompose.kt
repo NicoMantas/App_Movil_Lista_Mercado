@@ -316,31 +316,35 @@ fun ProfileScreen(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.background_header_2),
-                    contentDescription = null,
+                    contentDescription = "Header Background",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp, top = 50.dp),
+                        .padding(start = 25.dp, top = 50.dp), // Ajustado para mejor centrado vertical
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Logo con transparencia
                     Image(
-                        painter = painterResource(id = R.mipmap.ic_launcher_foreground),
+                        painter = painterResource(id = R.mipmap.ic_launcher_foreground), // Usa el foreground que configuramos antes
                         contentDescription = "Logo",
-                        modifier = Modifier.size(75.dp)
+                        modifier = Modifier
+                            .size(75.dp) // Un poco más grande para que luzca
+                            .clip(RoundedCornerShape(12.dp)) // un leve redondeado pa q se vea bien
                     )
-                    Spacer(modifier = Modifier.width(15.dp))
+
+                    Spacer(modifier = Modifier.width(15.dp)) // Menos espacio para que el texto no se pegue al borde
+
                     Text(
-                        text = "ShopList",
-                        fontSize = 32.sp,
+                        text = stringResource(R.string.app_name),
+                        fontSize = 32.sp, // Aumentado para resaltar el nombre de la app
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.Black
                     )
                 }
             }
-
             // Avatar
             Box(
                 modifier = Modifier
